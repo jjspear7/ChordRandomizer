@@ -72,7 +72,7 @@ entries = entriesInput.value
 
 if (rejected.length > 0) {
   alert(`The following entries were rejected for being suspicious:\n\n${rejected.join(", ")}`);
-  if (rejected.length > 0) return;
+  return;
 }
 
   const seconds = parseFloat(intervalInput.value);
