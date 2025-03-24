@@ -120,11 +120,17 @@ fullscreenBtn.addEventListener('click', () => {
   const isFullscreen = document.fullscreenElement != null;
   const progressContainer = document.getElementById('progressBarContainer');
   const progressBar = document.getElementById('progressBar');
+  const preview = document.getElementById('nextChordPreview');
 
   if (isFullscreen) {
+    display.classList.remove('normal-mode');
+    display.classList.add('fullscreen-mode');
+
     progressContainer.classList.remove('normal-mode');
     progressContainer.classList.add('fullscreen-mode');
     progressBar.classList.add('fullscreen-mode');
+    preview.classList.add('fullscreen-mode');
+
   } else {
     display.classList.remove('fullscreen-mode');
     display.classList.add('normal-mode');
@@ -132,14 +138,11 @@ fullscreenBtn.addEventListener('click', () => {
     progressContainer.classList.remove('fullscreen-mode');
     progressContainer.classList.add('normal-mode');
     progressBar.classList.remove('fullscreen-mode');
+    preview.classList.remove('fullscreen-mode');
 
+    // Clean up
     display.removeAttribute('style');
     progressContainer.removeAttribute('style');
-  }
-});
-display.addEventListener('click', () => {
-  if (document.fullscreenElement) {
-    document.exitFullscreen();
   }
 });
 
