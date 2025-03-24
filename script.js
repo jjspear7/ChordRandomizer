@@ -95,15 +95,21 @@ fullscreenBtn.addEventListener('click', () => {
   if (!document.fullscreenElement) {
     display.requestFullscreen().then(() => {
       display.classList.remove('normal-mode');
+      document.getElementById('progressBarContainer').classList.remove('normal-mode');
       display.classList.add('fullscreen-mode');
     });
   } else {
-document.exitFullscreen().then(() => {
-  display.classList.remove('fullscreen-mode');
-  display.classList.add('normal-mode');
+    document.exitFullscreen().then(() => {
+      display.classList.remove('fullscreen-mode');
+      display.classList.add('normal-mode');
 
-  // Wipe out inline styles just in case
-  display.removeAttribute('style');
-});
+      const progressContainer = document.getElementById('progressBarContainer');
+      progressContainer.classList.add('normal-mode');
+
+      // Wipe leftover inline styles
+      display.removeAttribute('style');
+      progressContainer.removeAttribute('style');
+    });
   }
 });
+
