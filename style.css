@@ -112,3 +112,8 @@ button {
   transition: width linear;
   border-radius: 12px 0 0 12px;
 }
+.chord-section-title {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
