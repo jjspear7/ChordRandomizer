@@ -53,15 +53,26 @@ function animateProgressBar() {
   }, 50);
 }
 
-function startCycle() {
-  entries = entriesInput.value
+let rejected = [];
+
+entries = entriesInput.value
   .split(',')
   .map(e => e.trim())
-  .filter(e => e && /^[a-zA-Z0-9#♯♭\\s]+$/.test(e));
-  if (entries.length === 0) {
-    alert("Please enter at least one chord.");
-    return;
-  }
+  .filter(e => {
+    if (!e) return false;
+
+    const hasBadChars = /[<>{}[\];'"`\\]/.test(e);
+    if (hasBadChars) {
+      rejected.push(e);
+      return false;
+    }
+
+    return true;
+  });
+
+if (rejected.length > 0) {
+  alert(`The following entries were rejected for unsafe characters:\n\n${rejected.join(", ")}`);
+}
 
   const seconds = parseFloat(intervalInput.value);
   if (isNaN(seconds) || seconds <= 0) {
