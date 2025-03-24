@@ -192,6 +192,6 @@ button {
   margin-top: 20px;
 }
 .bar-spacer {
-  height: 10px; /* Adjust if needed */
+  height: clamp(10px, 2vh, 20px); /* Adjust if needed */
   flex-shrink: 0;
 }
