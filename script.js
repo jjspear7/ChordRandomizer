@@ -23,11 +23,12 @@ function displayRandomEntry() {
   lastChord = entries[newIndex];
   display.classList.remove('fade-in');
   setTimeout(() => {
-    display.innerHTML = `<span style="color:white;">${lastChord}</span>`;
+    document.getElementById('chordText').textContent = lastChord;
     display.classList.add('fade-in');
     animateProgressBar();
   }, 200);
 }
+
 
 function animateProgressBar() {
   const bar = document.getElementById('progressBar');
