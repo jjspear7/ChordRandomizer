@@ -64,10 +64,10 @@ entries = entriesInput.value
   const hasBadChars = /[<>{}[\];'"`\\]/.test(e);
   if (hasBadChars) {
     rejected.push(e);
-    return false;  // ❗ Don't include this entry
+    return false; 
   }
 
-  return true; // ✅ Include this entry
+  return true; 
 });
 
 if (rejected.length > 0) {
@@ -98,7 +98,7 @@ function resetCycle() {
   running = false;
   startPauseBtn.textContent = "Start";
 
-  intervalInput.value = "1"; // 🟢 Set default back
+  intervalInput.value = "1"; //  Set default back
   entriesInput.value = "";
   display.classList.remove('fade-in');
   document.getElementById('chordText').textContent = "♪";
@@ -132,7 +132,7 @@ fullscreenBtn.addEventListener('click', () => {
       display.classList.add('fullscreen-mode');
     });
   } else {
-    document.exitFullscreen(); // No need for then() now
+    document.exitFullscreen(); 
   }
 });
  document.addEventListener('fullscreenchange', () => {
