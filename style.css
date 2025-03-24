@@ -83,7 +83,7 @@ button {
   border: 2px solid white;
   border-radius: 12px;
   padding: 10px;
-  padding-bottom: 30px; /* 🆕 gives room for preview and bar */
+  padding-bottom: clamp(20px, 5vh, 50px);
   box-sizing: border-box;
   overflow: hidden;
   margin-top: 30px;
