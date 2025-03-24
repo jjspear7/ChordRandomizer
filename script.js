@@ -117,5 +117,4 @@ fullscreenBtn.addEventListener('click', () => {
     progressContainer.removeAttribute('style');
   }
 });
-});
 
