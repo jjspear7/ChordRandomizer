@@ -93,9 +93,9 @@ button {
 .fade-in {
   opacity: 1;
 }
-.normal-mode {
-  font-size: clamp(2em, 5vw, 4em);
-  height: 140px;
+#display.normal-mode {
+  font-size: clamp(2em, 5vw, 4em) !important;
+  height: 140px !important;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -129,14 +129,16 @@ button {
   color: white;
 }
 
-.fullscreen-mode {
-  font-size: clamp(6em, 12vw, 16em);/* BIGGER max size for fullscreen */
-  height: 100vh;
-  border: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+#display.fullscreen-mode {
+  font-size: clamp(6em, 12vw, 16em) !important;
+  height: 100vh !important;
+  width: 100vw !important;
+  border: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center !important;
 }
 
