@@ -99,17 +99,23 @@ fullscreenBtn.addEventListener('click', () => {
       display.classList.add('fullscreen-mode');
     });
   } else {
-    document.exitFullscreen().then(() => {
-      display.classList.remove('fullscreen-mode');
-      display.classList.add('normal-mode');
-
-      const progressContainer = document.getElementById('progressBarContainer');
-      progressContainer.classList.add('normal-mode');
-
-      // Wipe leftover inline styles
-      display.removeAttribute('style');
-      progressContainer.removeAttribute('style');
-    });
+    document.exitFullscreen(); // No need for then() now
   }
+});
+  document.addEventListener('fullscreenchange', () => {
+  const isFullscreen = document.fullscreenElement != null;
+
+  if (!isFullscreen) {
+    // User exited fullscreen (via Escape or button)
+    display.classList.remove('fullscreen-mode');
+    display.classList.add('normal-mode');
+
+    const progressContainer = document.getElementById('progressBarContainer');
+    progressContainer.classList.add('normal-mode');
+
+    display.removeAttribute('style');
+    progressContainer.removeAttribute('style');
+  }
+});
 });
 
