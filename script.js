@@ -102,19 +102,26 @@ fullscreenBtn.addEventListener('click', () => {
     document.exitFullscreen(); // No need for then() now
   }
 });
-  document.addEventListener('fullscreenchange', () => {
+ document.addEventListener('fullscreenchange', () => {
   const isFullscreen = document.fullscreenElement != null;
+  const progressContainer = document.getElementById('progressBarContainer');
+  const progressBar = document.getElementById('progressBar');
 
-  if (!isFullscreen) {
-    // User exited fullscreen (via Escape or button)
+  if (isFullscreen) {
+    progressContainer.classList.remove('normal-mode');
+    progressContainer.classList.add('fullscreen-mode');
+    progressBar.classList.add('fullscreen-mode');
+  } else {
     display.classList.remove('fullscreen-mode');
     display.classList.add('normal-mode');
 
-    const progressContainer = document.getElementById('progressBarContainer');
+    progressContainer.classList.remove('fullscreen-mode');
     progressContainer.classList.add('normal-mode');
+    progressBar.classList.remove('fullscreen-mode');
 
     display.removeAttribute('style');
     progressContainer.removeAttribute('style');
   }
 });
+
 
