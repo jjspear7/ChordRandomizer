@@ -94,7 +94,7 @@ button {
 
 #display.normal-mode {
   font-size: clamp(2em, 5vw, 4em) !important;
-  height: 180px !important;
+  height: 200px !important;
   width: 100%;
   border: 2px solid white;
   border-radius: 12px;
@@ -201,6 +201,6 @@ button {
   margin-top: 20px;
 }
 .bar-spacer {
- /* height: clamp(10px, 2vh, 20px); /* Adjust if needed */
+ height: clamp(10px, 1.6vh, 20px); /* Adjust if needed */
   flex-shrink: 0;
 }
