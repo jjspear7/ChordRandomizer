@@ -94,7 +94,7 @@ button {
 
 #display.normal-mode {
   font-size: clamp(2em, 5vw, 4em) !important;
-  height: 140px !important;
+  height: 180px !important;
   width: 100%;
   border: 2px solid white;
   border-radius: 12px;
