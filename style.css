@@ -141,17 +141,19 @@ button {
 }
 
 #display.fullscreen-mode {
-  font-size: clamp(6em, 12vw, 16em) !important;
-  height: 100vh !important;
-  width: 100vw !important;
-  border: none !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  text-align: center !important;
   position: relative;
+  font-size: clamp(6em, 12vw, 16em) !important;
+  width: 100%;
+  height: auto;
+  border: 2px solid white;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
 }
 #progressBarContainer.fullscreen-mode {
   position: absolute;
@@ -186,4 +188,9 @@ button {
   font-size: 1.2em;
   color: #aaa;
   margin-top: 10px;
+}
+#nextChordPreview {
+  color: #ccc;
+  margin-top: 20px;
+  font-size: 1.5em;
 }
