@@ -93,7 +93,14 @@ button {
 .fade-in {
   opacity: 1;
 }
-
+.normal-mode {
+  font-size: clamp(2em, 5vw, 4em);
+  height: 140px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
 #progressBarContainer {
   width: 100%;
   max-width: 600px;
