@@ -58,17 +58,17 @@ let rejected = [];
 entries = entriesInput.value
   .split(',')
   .map(e => e.trim())
-  .filter(e => {
-    if (!e) return false;
+ .filter(e => {
+  if (!e) return false;
 
-    const hasBadChars = /[<>{}[\];'"`\\]/.test(e);
-    if (hasBadChars) {
-      rejected.push(e);
-      return false;
-    }
+  const hasBadChars = /[<>{}[\];'"`\\]/.test(e);
+  if (hasBadChars) {
+    rejected.push(e);
+    return false;  // ❗ Don't include this entry
+  }
 
-    return true;
-  });
+  return true; // ✅ Include this entry
+});
 
 if (rejected.length > 0) {
   alert(`The following entries were rejected for being suspicious:\n\n${rejected.join(", ")}`);
