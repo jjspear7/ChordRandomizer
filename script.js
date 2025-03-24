@@ -71,7 +71,7 @@ entries = entriesInput.value
   });
 
 if (rejected.length > 0) {
-  alert(`The following entries were rejected for unsafe characters:\n\n${rejected.join(", ")}`);
+  alert(`The following entries were rejected for being suspicious:\n\n${rejected.join(", ")}`);
   if (rejected.length > 0) return;
 }
 
