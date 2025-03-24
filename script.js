@@ -94,15 +94,13 @@ const fullscreenBtn = document.getElementById('fullscreenBtn');
 fullscreenBtn.addEventListener('click', () => {
   if (!document.fullscreenElement) {
     display.requestFullscreen().then(() => {
+      display.classList.remove('normal-mode');
       display.classList.add('fullscreen-mode');
     });
   } else {
     document.exitFullscreen().then(() => {
       display.classList.remove('fullscreen-mode');
-      // Optional: force layout reset
-      display.style.width = '';
-      display.style.height = '';
-      display.style.fontSize = '';
+      display.classList.add('normal-mode');
     });
   }
 });
