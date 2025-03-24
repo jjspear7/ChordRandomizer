@@ -189,11 +189,12 @@ button {
   margin-top: 20px;
 }
 #nextChordPreview {
-  color: #aaa;
-  font-size: 1.2em;
-  margin-top: 15px;
+  color: #888;
+  margin-top: 10px;
   text-align: center;
+  font-size: 0.5em; /* Half the size of main chord text */
 }
 #nextChordPreview.fullscreen-mode {
-  font-size: 2em;
+  font-size: 0.4em;
+  margin-top: 20px;
 }
