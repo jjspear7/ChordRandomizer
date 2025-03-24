@@ -55,15 +55,16 @@
     </div>
 
 <div id="display" class="normal-mode">
-<div id="chordText">♪</div>
-<div id="nextChordPreview" class="next-chord" aria-hidden="true">
-  <div class="bar-spacer"></div> <!-- 🆕 This pushes preview away from bar -->
-  <span id="nextChordText"></span> <!-- empty! -->
-</div>
+  <div id="chordText">♪</div>
+  <div id="nextChordPreview" class="next-chord" aria-hidden="true">
+    <span id="nextChordText"></span>
+  </div>
+  <div class="bar-spacer"></div> <!-- ✅ Moved out of preview and into the flow -->
   <div id="progressBarContainer" class="normal-mode">
     <div id="progressBar"></div>
   </div>
 </div>
+
   <script src="script.js"></script>
 </body>
 </html>
