@@ -169,8 +169,9 @@ button {
   transition: width linear;
 }
 .site-description {
-  font-size: 0.9em;
-  color: #ccc;
+  font-size: 1.3em;
+  color: #aaa;
+  font-weight: 300;
   margin-top: 5px;
   margin-bottom: 20px;
 }
