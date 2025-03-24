@@ -172,6 +172,7 @@ button {
 }
 #chordText {
   font-size: clamp(2em, 8vw, 4em);
+  line-height: 1.1;
   text-align: center;
   word-wrap: break-word;
   overflow-wrap: break-word;
