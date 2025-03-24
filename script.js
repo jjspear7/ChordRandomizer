@@ -13,6 +13,14 @@ const clearTimeBtn = document.getElementById('clearTimeBtn');
 const clearChordsBtn = document.getElementById('clearChordsBtn');
 const display = document.getElementById('display');
 
+const toggleChordListBtn = document.getElementById('toggleChordListBtn');
+const presetChordContainer = document.getElementById('presetChordContainer');
+
+toggleChordListBtn.addEventListener('click', () => {
+  const isVisible = presetChordContainer.style.display === 'block';
+  presetChordContainer.style.display = isVisible ? 'none' : 'block';
+});
+
 function displayRandomEntry() {
   if (entries.length === 0) return;
 
@@ -163,5 +171,6 @@ fullscreenBtn.addEventListener('click', () => {
     display.removeAttribute('style');
     progressContainer.removeAttribute('style');
   }
+
 });
 
