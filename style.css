@@ -67,7 +67,9 @@ button {
   color: #fff;
   flex: 0 0 auto;
 }
-
+.fade-in {
+  opacity: 1;
+}
 #display {
   display: flex;
   visibility: visible;
@@ -91,9 +93,6 @@ button {
   position: relative;
 }
 
-.fade-in {
-  opacity: 1;
-}
 #display.normal-mode {
   font-size: clamp(2em, 5vw, 4em) !important;
   height: 140px !important;
@@ -108,7 +107,20 @@ button {
   text-align: center;
   flex-direction: column
 }
-
+#display.fullscreen-mode {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  font-size: clamp(6em, 12vw, 16em) !important;
+  width: 100%;
+  height: auto;
+  border: 2px solid white;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 0;
+  position: relative;
+}
 #progressBarContainer {
   width: 100%;
   height: 10px;
@@ -140,21 +152,6 @@ button {
   color: white;
 }
 
-#display.fullscreen-mode {
-  position: relative;
-  font-size: clamp(6em, 12vw, 16em) !important;
-  width: 100%;
-  height: auto;
-  border: 2px solid white;
-  border-radius: 12px;
-  padding: 20px;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  
-}
 #progressBarContainer.fullscreen-mode {
   position: absolute;
   bottom: 20px;
@@ -190,7 +187,11 @@ button {
   margin-top: 10px;
 }
 #nextChordPreview {
-  color: #ccc;
-  margin-top: 20px;
-  font-size: 1.5em;
+  color: #aaa;
+  font-size: 1.2em;
+  margin-top: 15px;
+  text-align: center;
+}
+#nextChordPreview.fullscreen-mode {
+  font-size: 2em;
 }
