@@ -72,25 +72,21 @@ button {
 }
 #display {
   display: flex;
-  visibility: visible;
-  opacity: 1;
-  color: white;
-  font-size: clamp(2em, 5vw, 4em);
-  width: 100%;
-  height: 140px;
+  flex-direction: column; /* 🆕 stack vertically */
   justify-content: center;
   align-items: center;
-  text-align: center;
+  position: relative;     /* 🆕 anchor children */
+  font-size: clamp(2em, 5vw, 4em);
+  color: white;
+  width: 100%;
+  height: 140px;
   border: 2px solid white;
   border-radius: 12px;
   padding: 10px;
   box-sizing: border-box;
   overflow: hidden;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
   margin-top: 30px;
   transition: opacity 0.5s ease-in-out;
-  position: relative;
 }
 
 #display.normal-mode {
@@ -138,13 +134,16 @@ button {
   border-radius: 12px 0 0 12px;
 }
 #progressBarContainer {
-  width: 100%;
+ width: 100%;
   height: 10px;
   background-color: #444;
   border-radius: 12px;
   overflow: hidden;
   box-sizing: border-box;
-  margin-top: auto;
+  position: absolute;   /* 🆕 sit on bottom */
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 #progressBarContainer.normal-mode {
   max-width: 600px;
@@ -152,19 +151,10 @@ button {
   margin: 10px auto 0;
 }
 #progressBarContainer.fullscreen-mode {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 12px;
-  margin: 0;
-  border-radius: 0;
+ height: 12px;
+ border-radius: 0;
 }
 #progressBar.fullscreen-mode {
-  background-color: white;
-  height: 100%;
-  width: 0%;
-  transition: width linear;
   border-radius: 0;
 }
 .site-description {
