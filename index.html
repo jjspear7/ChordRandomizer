@@ -17,7 +17,7 @@
       max-width: 600px;
       margin: auto;
     }
-    h1 {
+    h1, h2 {
       margin-top: 20px;
     }
     label {
@@ -48,6 +48,10 @@
       background-color: #f44336;
       color: white;
     }
+    #clearInputsBtn {
+      background-color: #555;
+      color: white;
+    }
     #display {
       font-size: 4em;
       margin-top: 50px;
@@ -61,21 +65,30 @@
     .fade-in {
       opacity: 1;
     }
+    /* Debugging / visibility styles for #display */
     #display {
-  display: flex !important;  /* Force it to show */
-  visibility: visible !important;
-  opacity: 1 !important;
-  color: #ffffff !important;  /* Ensure white text */
-  font-size: 4em !important;
-  width: 100%;
-  height: auto;
-  min-height: 120px;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  border: 2px solid red; /* TEMPORARY: Adds a border to see if it's showing up */
-}
-
+      display: flex !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      color: #ffffff !important;
+      font-size: 4em !important;
+      width: 100%;
+      height: auto;
+      min-height: 120px;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      border: 2px solid red; /* TEMPORARY: Debug border */
+    }
+    /* Preset chord button styles */
+    #presetChords {
+      margin: 20px 0;
+    }
+    #presetChords button {
+      background-color: #333;
+      color: #fff;
+      margin: 5px;
+    }
   </style>
 </head>
 <body>
@@ -89,10 +102,30 @@
       <label for="entries">Chords (separated by commas):</label>
       <input type="text" id="entries" placeholder="e.g. G Major, A Minor, C Major">
     </div>
+    
+    <!-- Preset Chord Buttons -->
+    <div id="presetChords">
+      <h2>Preset Chords</h2>
+      <button class="presetChord" data-chord="G Major">G Major</button>
+      <button class="presetChord" data-chord="A Minor">A Minor</button>
+      <button class="presetChord" data-chord="C Major">C Major</button>
+      <button class="presetChord" data-chord="D Major">D Major</button>
+      <button class="presetChord" data-chord="E Minor">E Minor</button>
+      <button class="presetChord" data-chord="F Major">F Major</button>
+      <button class="presetChord" data-chord="B Minor">B Minor</button>
+    </div>
+    
+    <!-- Clear Inputs Button -->
+    <div>
+      <button id="clearInputsBtn">Clear Inputs</button>
+    </div>
+    
+    <!-- Start/Pause and Reset Buttons -->
     <div>
       <button id="startPauseBtn">Start</button>
       <button id="resetBtn">Reset</button>
     </div>
+    
     <div id="display">♪</div>
   </div>
   
@@ -101,14 +134,14 @@
     let entries = [];
     let currentInterval = 1000;
     let running = false;
+    let lastChord = null; // Track the last chosen chord
 
     const intervalInput = document.getElementById('interval');
     const entriesInput = document.getElementById('entries');
     const startPauseBtn = document.getElementById('startPauseBtn');
     const resetBtn = document.getElementById('resetBtn');
+    const clearInputsBtn = document.getElementById('clearInputsBtn');
     const display = document.getElementById('display');
-
-    let lastChord = null; // Track the last chosen chord
 
     function displayRandomEntry() {
         if (entries.length === 0) return;
@@ -116,11 +149,10 @@
         let newIndex;
         do {
             newIndex = Math.floor(Math.random() * entries.length);
-        } while (entries[newIndex] === lastChord && entries.length > 1); // Ensure a new choice
+        } while (entries[newIndex] === lastChord && entries.length > 1);
 
-        lastChord = entries[newIndex]; // Store the new choice
-
-        console.log(`Displaying: ${lastChord}`);  
+        lastChord = entries[newIndex];
+        console.log(`Displaying: ${lastChord}`);
 
         display.classList.remove('fade-in');
         setTimeout(() => {
@@ -130,12 +162,11 @@
         }, 200);
     }
 
-
     function startCycle() {
-      console.log("Start button pressed");  // Debugging log
+      console.log("Start button pressed");
 
       entries = entriesInput.value.split(',').map(e => e.trim()).filter(e => e);
-      console.log("Parsed Entries:", entries);  // Debugging log
+      console.log("Parsed Entries:", entries);
 
       if (entries.length === 0) {
         alert("Please enter at least one chord.");
@@ -148,7 +179,7 @@
         return;
       }
       currentInterval = seconds * 1000;
-      console.log(`Interval set to: ${currentInterval}ms`);  // Debugging log
+      console.log(`Interval set to: ${currentInterval}ms`);
 
       if (!running) {
         console.log("Starting interval...");
@@ -165,8 +196,7 @@
     }
 
     function resetCycle() {
-      console.log("Reset button pressed");  // Debugging log
-
+      console.log("Reset button pressed");
       clearInterval(intervalId);
       running = false;
       startPauseBtn.textContent = "Start";
@@ -177,8 +207,27 @@
       entries = [];
     }
 
+    // Event listeners for main buttons
     startPauseBtn.addEventListener('click', startCycle);
     resetBtn.addEventListener('click', resetCycle);
+    clearInputsBtn.addEventListener('click', () => {
+      intervalInput.value = "";
+      entriesInput.value = "";
+    });
+
+    // Event listeners for preset chord buttons
+    const chordButtons = document.querySelectorAll('.presetChord');
+    chordButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const chord = button.getAttribute('data-chord');
+        let currentValue = entriesInput.value.trim();
+        if (currentValue === "") {
+          entriesInput.value = chord;
+        } else {
+          entriesInput.value = currentValue + ", " + chord;
+        }
+      });
+    });
   </script>
 </body>
 </html>
