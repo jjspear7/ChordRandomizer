@@ -98,20 +98,12 @@ fullscreenBtn.addEventListener('click', () => {
       display.classList.add('fullscreen-mode');
     });
   } else {
-    document.exitFullscreen().then(() => {
+document.exitFullscreen().then(() => {
   display.classList.remove('fullscreen-mode');
   display.classList.add('normal-mode');
 
-  // Force-clear any leftover inline styles from fullscreen
-  display.style.fontSize = '';
-  display.style.height = '';
-  display.style.width = '';
-  display.style.margin = '';
-  display.style.padding = '';
-  display.style.display = '';
-  display.style.justifyContent = '';
-  display.style.alignItems = '';
-  display.style.textAlign = '';
+  // Wipe out inline styles just in case
+  display.removeAttribute('style');
 });
   }
 });
