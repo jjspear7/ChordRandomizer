@@ -3,6 +3,7 @@ let entries = [];
 let currentInterval = 1000;
 let running = false;
 let lastChord = null;
+let nextChord = null;
 
 const intervalInput = document.getElementById('interval');
 const entriesInput = document.getElementById('entries');
@@ -15,15 +16,27 @@ const display = document.getElementById('display');
 function displayRandomEntry() {
   if (entries.length === 0) return;
 
+  let currentChord = nextChord;
   let newIndex;
+
+  // Pick the *next* chord now
   do {
     newIndex = Math.floor(Math.random() * entries.length);
-  } while (entries[newIndex] === lastChord && entries.length > 1);
+  } while (entries[newIndex] === currentChord && entries.length > 1);
 
-  lastChord = entries[newIndex];
+  nextChord = entries[newIndex];
+
+  if (currentChord == null) {
+    // First call, show placeholder
+    currentChord = entries[Math.floor(Math.random() * entries.length)];
+  }
+
+  lastChord = currentChord;
+  document.getElementById('chordText').textContent = currentChord;
+  document.getElementById('nextChordText').textContent = nextChord;
+
   display.classList.remove('fade-in');
   setTimeout(() => {
-    document.getElementById('chordText').textContent = lastChord;
     display.classList.add('fade-in');
     animateProgressBar();
   }, 200);
