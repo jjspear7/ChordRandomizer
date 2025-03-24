@@ -2,183 +2,64 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chord Transition Practice</title>
-  <style>
-    body {
-      background-color: #222;
-      color: #fff;
-      font-family: sans-serif;
-      text-align: center;
-      padding: 20px;
-      margin: 0;
-    }
-    .container {
-      max-width: 600px;
-      margin: auto;
-    }
-    h1 {
-      margin-top: 20px;
-    }
-    label {
-      display: block;
-      margin: 10px 0 5px;
-    }
-    input {
-      padding: 10px;
-      margin-bottom: 10px;
-      width: 90%;
-      font-size: 1em;
-      border: none;
-      border-radius: 4px;
-    }
-    button {
-      padding: 10px 20px;
-      margin: 5px;
-      font-size: 1em;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    #startPauseBtn {
-      background-color: #4CAF50;
-      color: white;
-    }
-    #resetBtn {
-      background-color: #f44336;
-      color: white;
-    }
-    #display {
-      font-size: 4em;
-      margin-top: 50px;
-      min-height: 120px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: opacity 0.5s ease-in-out;
-    }
-    .fade-in {
-      opacity: 1;
-    }
-    #display {
-  display: flex !important;  /* Force it to show */
-  visibility: visible !important;
-  opacity: 1 !important;
-  color: #ffffff !important;  /* Ensure white text */
-  font-size: 4em !important;
-  width: 100%;
-  height: auto;
-  min-height: 120px;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  border: 2px solid red; /* TEMPORARY: Adds a border to see if it's showing up */
-}
-
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
     <h1>Chord Transition Practice</h1>
+
     <div>
       <label for="interval">Time Interval (seconds):</label>
       <input type="number" id="interval" step="0.1" placeholder="e.g. 0.5, 1, 2">
+      <button id="clearTimeBtn">Clear Time</button>
     </div>
+
     <div>
       <label for="entries">Chords (separated by commas):</label>
       <input type="text" id="entries" placeholder="e.g. G Major, A Minor, C Major">
+      <button id="clearChordsBtn">Clear Chords</button>
     </div>
+
+    <div id="presetChords">
+      <h2>Preset Chords</h2>
+      <!-- Major chords -->
+      <button class="presetChord" data-chord="C Major">C Major</button>
+      <button class="presetChord" data-chord="D Major">D Major</button>
+      <button class="presetChord" data-chord="E Major">E Major</button>
+      <button class="presetChord" data-chord="F Major">F Major</button>
+      <button class="presetChord" data-chord="G Major">G Major</button>
+      <button class="presetChord" data-chord="A Major">A Major</button>
+      <button class="presetChord" data-chord="B Major">B Major</button>
+
+      <!-- Minor chords -->
+      <button class="presetChord" data-chord="C Minor">C Minor</button>
+      <button class="presetChord" data-chord="D Minor">D Minor</button>
+      <button class="presetChord" data-chord="E Minor">E Minor</button>
+      <button class="presetChord" data-chord="F Minor">F Minor</button>
+      <button class="presetChord" data-chord="G Minor">G Minor</button>
+      <button class="presetChord" data-chord="A Minor">A Minor</button>
+      <button class="presetChord" data-chord="B Minor">B Minor</button>
+
+      <!-- 7 chords -->
+      <button class="presetChord" data-chord="A7">A7</button>
+      <button class="presetChord" data-chord="B7">B7</button>
+      <button class="presetChord" data-chord="E7">E7</button>
+      <button class="presetChord" data-chord="G7">G7</button>
+    </div>
+
     <div>
       <button id="startPauseBtn">Start</button>
       <button id="resetBtn">Reset</button>
     </div>
+
     <div id="display">♪</div>
+    <div id="progressBarContainer">
+      <div id="progressBar"></div>
+    </div>
   </div>
-  
-  <script>
-    let intervalId = null;
-    let entries = [];
-    let currentInterval = 1000;
-    let running = false;
 
-    const intervalInput = document.getElementById('interval');
-    const entriesInput = document.getElementById('entries');
-    const startPauseBtn = document.getElementById('startPauseBtn');
-    const resetBtn = document.getElementById('resetBtn');
-    const display = document.getElementById('display');
-
-    let lastChord = null; // Track the last chosen chord
-
-    function displayRandomEntry() {
-        if (entries.length === 0) return;
-
-        let newIndex;
-        do {
-            newIndex = Math.floor(Math.random() * entries.length);
-        } while (entries[newIndex] === lastChord && entries.length > 1); // Ensure a new choice
-
-        lastChord = entries[newIndex]; // Store the new choice
-
-        console.log(`Displaying: ${lastChord}`);  
-
-        display.classList.remove('fade-in');
-        setTimeout(() => {
-            display.innerHTML = `<span style="color:white; font-size:4em;">${lastChord}</span>`;
-            display.classList.add('fade-in');
-            console.log(`Displayed on screen: ${lastChord}`);
-        }, 200);
-    }
-
-
-    function startCycle() {
-      console.log("Start button pressed");  // Debugging log
-
-      entries = entriesInput.value.split(',').map(e => e.trim()).filter(e => e);
-      console.log("Parsed Entries:", entries);  // Debugging log
-
-      if (entries.length === 0) {
-        alert("Please enter at least one chord.");
-        return;
-      }
-
-      const seconds = parseFloat(intervalInput.value);
-      if (isNaN(seconds) || seconds <= 0) {
-        alert("Please enter a valid time interval.");
-        return;
-      }
-      currentInterval = seconds * 1000;
-      console.log(`Interval set to: ${currentInterval}ms`);  // Debugging log
-
-      if (!running) {
-        console.log("Starting interval...");
-        displayRandomEntry();  
-        intervalId = setInterval(displayRandomEntry, currentInterval);
-        running = true;
-        startPauseBtn.textContent = "Pause";
-      } else {
-        console.log("Pausing interval...");
-        clearInterval(intervalId);
-        running = false;
-        startPauseBtn.textContent = "Start";
-      }
-    }
-
-    function resetCycle() {
-      console.log("Reset button pressed");  // Debugging log
-
-      clearInterval(intervalId);
-      running = false;
-      startPauseBtn.textContent = "Start";
-      intervalInput.value = "";
-      entriesInput.value = "";
-      display.textContent = "♪";
-      display.classList.remove('fade-in');
-      entries = [];
-    }
-
-    startPauseBtn.addEventListener('click', startCycle);
-    resetBtn.addEventListener('click', resetCycle);
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
