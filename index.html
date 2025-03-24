@@ -21,7 +21,26 @@
       <input type="text" id="entries" placeholder="e.g. G Major, A Minor, C Major">
       <button id="clearChordsBtn">Clear Chords</button>
     </div>
-    <h2 class="chord-section-title">Preset Chords</h2>
+ 
+
+    <div>
+      <button id="startPauseBtn">Start</button>
+      <button id="resetBtn">Reset</button>
+      <button id="fullscreenBtn">Fullscreen</button>
+    </div>
+
+<div id="display" class="normal-mode">
+  <div id="chordText">♪</div>
+  <div id="nextChordPreview" class="next-chord" aria-hidden="true">
+    <span id="nextChordText"></span>
+  </div>
+  <div class="bar-spacer"></div> <!-- ✅ Moved out of preview and into the flow -->
+  <div id="progressBarContainer" class="normal-mode">
+    <div id="progressBar"></div>
+  </div>
+</div>
+<button id="toggleChordListBtn">Toggle Chord Buttons</button>
+<h2 class="chord-section-title">Preset Chords</h2>
     <div id="presetChords">
       <!-- Major chords -->
       <button class="presetChord" data-chord="C Major">C Major</button>
@@ -47,24 +66,6 @@
       <button class="presetChord" data-chord="E7">E7</button>
       <button class="presetChord" data-chord="G7">G7</button>
     </div>
-
-    <div>
-      <button id="startPauseBtn">Start</button>
-      <button id="resetBtn">Reset</button>
-      <button id="fullscreenBtn">Fullscreen</button>
-    </div>
-
-<div id="display" class="normal-mode">
-  <div id="chordText">♪</div>
-  <div id="nextChordPreview" class="next-chord" aria-hidden="true">
-    <span id="nextChordText"></span>
-  </div>
-  <div class="bar-spacer"></div> <!-- ✅ Moved out of preview and into the flow -->
-  <div id="progressBarContainer" class="normal-mode">
-    <div id="progressBar"></div>
-  </div>
-</div>
-
   <script src="script.js"></script>
 </body>
 </html>
