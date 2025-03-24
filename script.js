@@ -52,7 +52,7 @@ function animateProgressBar() {
     bar.style.width = '100%';
   }, 50);
 }
-
+function startCycle() {
 let rejected = [];
 
 entries = entriesInput.value
