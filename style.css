@@ -123,7 +123,7 @@ button {
 }
 
 .fullscreen-mode {
-  font-size: clamp(6em, 12vw, 16em); /* BIGGER max size for fullscreen */
+  font-size: clamp(6em, 12vw, 16em) !important;/* BIGGER max size for fullscreen */
   height: 100vh;
   border: none;
   margin: 0;
