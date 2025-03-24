@@ -123,5 +123,9 @@ fullscreenBtn.addEventListener('click', () => {
     progressContainer.removeAttribute('style');
   }
 });
-
+display.addEventListener('click', () => {
+  if (document.fullscreenElement) {
+    document.exitFullscreen();
+  }
+});
 
