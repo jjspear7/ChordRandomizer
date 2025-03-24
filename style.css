@@ -123,9 +123,17 @@ button {
 }
 
 .fullscreen-mode {
-  font-size: clamp(3em, 10vw, 10em);
+  font-size: clamp(6em, 12vw, 16em); /* BIGGER max size for fullscreen */
   height: 100vh;
   border: none;
   margin: 0;
   padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#display.fullscreen-mode {
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
 }
