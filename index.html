@@ -94,80 +94,89 @@
 <body>
   <div class="container">
     <h1>Chord Transition Practice</h1>
+
     <div>
       <label for="interval">Time Interval (seconds):</label>
       <input type="number" id="interval" step="0.1" placeholder="e.g. 0.5, 1, 2">
+      <button id="clearTimeBtn">Clear Time</button>
     </div>
+
     <div>
       <label for="entries">Chords (separated by commas):</label>
       <input type="text" id="entries" placeholder="e.g. G Major, A Minor, C Major">
+      <button id="clearChordsBtn">Clear Chords</button>
     </div>
-    
+
     <!-- Preset Chord Buttons -->
     <div id="presetChords">
       <h2>Preset Chords</h2>
-      <button class="presetChord" data-chord="G Major">G Major</button>
-      <button class="presetChord" data-chord="A Minor">A Minor</button>
+      <!-- Major chords -->
       <button class="presetChord" data-chord="C Major">C Major</button>
       <button class="presetChord" data-chord="D Major">D Major</button>
-      <button class="presetChord" data-chord="E Minor">E Minor</button>
+      <button class="presetChord" data-chord="E Major">E Major</button>
       <button class="presetChord" data-chord="F Major">F Major</button>
+      <button class="presetChord" data-chord="G Major">G Major</button>
+      <button class="presetChord" data-chord="A Major">A Major</button>
+      <button class="presetChord" data-chord="B Major">B Major</button>
+
+      <!-- Minor chords -->
+      <button class="presetChord" data-chord="C Minor">C Minor</button>
+      <button class="presetChord" data-chord="D Minor">D Minor</button>
+      <button class="presetChord" data-chord="E Minor">E Minor</button>
+      <button class="presetChord" data-chord="F Minor">F Minor</button>
+      <button class="presetChord" data-chord="G Minor">G Minor</button>
+      <button class="presetChord" data-chord="A Minor">A Minor</button>
       <button class="presetChord" data-chord="B Minor">B Minor</button>
+
+      <!-- 7 chords -->
+      <button class="presetChord" data-chord="A7">A7</button>
+      <button class="presetChord" data-chord="B7">B7</button>
+      <button class="presetChord" data-chord="E7">E7</button>
+      <button class="presetChord" data-chord="G7">G7</button>
     </div>
-    
-    <!-- Clear Inputs Button -->
-    <div>
-      <button id="clearInputsBtn">Clear Inputs</button>
-    </div>
-    
+
     <!-- Start/Pause and Reset Buttons -->
     <div>
       <button id="startPauseBtn">Start</button>
       <button id="resetBtn">Reset</button>
     </div>
-    
+
     <div id="display">♪</div>
   </div>
-  
+
   <script>
     let intervalId = null;
     let entries = [];
     let currentInterval = 1000;
     let running = false;
-    let lastChord = null; // Track the last chosen chord
+    let lastChord = null;
 
     const intervalInput = document.getElementById('interval');
     const entriesInput = document.getElementById('entries');
     const startPauseBtn = document.getElementById('startPauseBtn');
     const resetBtn = document.getElementById('resetBtn');
-    const clearInputsBtn = document.getElementById('clearInputsBtn');
+    const clearTimeBtn = document.getElementById('clearTimeBtn');
+    const clearChordsBtn = document.getElementById('clearChordsBtn');
     const display = document.getElementById('display');
 
     function displayRandomEntry() {
-        if (entries.length === 0) return;
+      if (entries.length === 0) return;
 
-        let newIndex;
-        do {
-            newIndex = Math.floor(Math.random() * entries.length);
-        } while (entries[newIndex] === lastChord && entries.length > 1);
+      let newIndex;
+      do {
+        newIndex = Math.floor(Math.random() * entries.length);
+      } while (entries[newIndex] === lastChord && entries.length > 1);
 
-        lastChord = entries[newIndex];
-        console.log(`Displaying: ${lastChord}`);
-
-        display.classList.remove('fade-in');
-        setTimeout(() => {
-            display.innerHTML = `<span style="color:white; font-size:4em;">${lastChord}</span>`;
-            display.classList.add('fade-in');
-            console.log(`Displayed on screen: ${lastChord}`);
-        }, 200);
+      lastChord = entries[newIndex];
+      display.classList.remove('fade-in');
+      setTimeout(() => {
+        display.innerHTML = `<span style="color:white; font-size:4em;">${lastChord}</span>`;
+        display.classList.add('fade-in');
+      }, 200);
     }
 
     function startCycle() {
-      console.log("Start button pressed");
-
       entries = entriesInput.value.split(',').map(e => e.trim()).filter(e => e);
-      console.log("Parsed Entries:", entries);
-
       if (entries.length === 0) {
         alert("Please enter at least one chord.");
         return;
@@ -179,16 +188,13 @@
         return;
       }
       currentInterval = seconds * 1000;
-      console.log(`Interval set to: ${currentInterval}ms`);
 
       if (!running) {
-        console.log("Starting interval...");
-        displayRandomEntry();  
+        displayRandomEntry();
         intervalId = setInterval(displayRandomEntry, currentInterval);
         running = true;
         startPauseBtn.textContent = "Pause";
       } else {
-        console.log("Pausing interval...");
         clearInterval(intervalId);
         running = false;
         startPauseBtn.textContent = "Start";
@@ -196,7 +202,6 @@
     }
 
     function resetCycle() {
-      console.log("Reset button pressed");
       clearInterval(intervalId);
       running = false;
       startPauseBtn.textContent = "Start";
@@ -207,27 +212,22 @@
       entries = [];
     }
 
-    // Event listeners for main buttons
-    startPauseBtn.addEventListener('click', startCycle);
-    resetBtn.addEventListener('click', resetCycle);
-    clearInputsBtn.addEventListener('click', () => {
-      intervalInput.value = "";
-      entriesInput.value = "";
-    });
+    // New clear buttons
+    clearTimeBtn.addEventListener('click', () => intervalInput.value = "");
+    clearChordsBtn.addEventListener('click', () => entriesInput.value = "");
 
-    // Event listeners for preset chord buttons
-    const chordButtons = document.querySelectorAll('.presetChord');
-    chordButtons.forEach(button => {
+    // Chord buttons
+    document.querySelectorAll('.presetChord').forEach(button => {
       button.addEventListener('click', () => {
         const chord = button.getAttribute('data-chord');
-        let currentValue = entriesInput.value.trim();
-        if (currentValue === "") {
-          entriesInput.value = chord;
-        } else {
-          entriesInput.value = currentValue + ", " + chord;
-        }
+        let current = entriesInput.value.trim();
+        entriesInput.value = current ? current + ", " + chord : chord;
       });
     });
+
+    // Start/reset listeners
+    startPauseBtn.addEventListener('click', startCycle);
+    resetBtn.addEventListener('click', resetCycle);
   </script>
 </body>
 </html>
