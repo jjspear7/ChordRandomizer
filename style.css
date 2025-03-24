@@ -106,6 +106,7 @@ button {
   justify-content: center;
   align-items: center;
   text-align: center;
+  flex-direction: column
 }
 
 #progressBarContainer {
@@ -176,4 +177,8 @@ button {
   font-weight: 300;
   margin-top: 5px;
   margin-bottom: 20px;
+}
+#chordText {
+  width: 100%;
+  text-align: center;
 }
