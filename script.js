@@ -54,7 +54,10 @@ function animateProgressBar() {
 }
 
 function startCycle() {
-  entries = entriesInput.value.split(',').map(e => e.trim()).filter(e => e);
+  entries = entriesInput.value
+  .split(',')
+  .map(e => e.trim())
+  .filter(e => e && /^[a-zA-Z0-9#♯♭\\s]+$/.test(e));
   if (entries.length === 0) {
     alert("Please enter at least one chord.");
     return;
