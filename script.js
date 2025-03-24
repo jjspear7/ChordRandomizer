@@ -103,7 +103,7 @@ function resetCycle() {
   entriesInput.value = "";
   display.classList.remove('fade-in');
   document.getElementById('chordText').textContent = "♪";
-  document.getElementById('nextChordText').textContent = "?";
+  document.getElementById('nextChordText').textContent = "";
   animateProgressBar(true); // Reset bar
 
   entries = [];
