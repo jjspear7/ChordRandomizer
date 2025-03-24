@@ -182,7 +182,7 @@ button {
 }
 #nextChordPreview {
   color: #888;
-  margin-top: 10px;
+  margin-bottom: 10px;
   text-align: center;
   font-size: 0.5em; /* Half the size of main chord text */
 }
