@@ -75,13 +75,13 @@ if (rejected.length > 0) {
 }
 
   const seconds = parseFloat(intervalInput.value);
-  if (isNaN(seconds) || seconds <= 0) {
-    alert("Please enter a valid time interval.");
-    return;
-  }
+if (isNaN(seconds) || seconds <= 0) {
+  alert("Please enter a valid time interval.");
+  return;
+}
   currentInterval = seconds * 1000;
 
-  if (!running) {
+if (!running) {
     displayRandomEntry();
     intervalId = setInterval(displayRandomEntry, currentInterval);
     running = true;
