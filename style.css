@@ -209,3 +209,12 @@ button {
  height: clamp(10px, 1.6vh, 20px); /* Adjust if needed */
   flex-shrink: 0;
 }
+#toggleChordListBtn {
+  background-color: #666;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  margin: 5px;
+  cursor: pointer;
+}
