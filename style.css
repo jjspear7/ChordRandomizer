@@ -191,3 +191,7 @@ button {
   font-size: 0.4em;
   margin-top: 20px;
 }
+.bar-spacer {
+  height: 10px; /* Adjust if needed */
+  flex-shrink: 0;
+}
