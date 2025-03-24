@@ -150,6 +150,7 @@ button {
   justify-content: center !important;
   align-items: center !important;
   text-align: center !important;
+  position: relative;
 }
 #progressBarContainer.fullscreen-mode {
   position: absolute;
@@ -166,4 +167,10 @@ button {
   height: 100%;
   width: 0%;
   transition: width linear;
+}
+.site-description {
+  font-size: 0.9em;
+  color: #ccc;
+  margin-top: 5px;
+  margin-bottom: 20px;
 }
