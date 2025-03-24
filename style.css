@@ -87,6 +87,7 @@ button {
   overflow: hidden;
   margin-top: 30px;
   transition: opacity 0.5s ease-in-out;
+  padding-bottom: 20px;
 }
 
 #display.normal-mode {
