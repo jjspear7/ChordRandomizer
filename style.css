@@ -94,7 +94,8 @@ button {
 
 #display.normal-mode {
   font-size: clamp(2em, 5vw, 4em) !important;
-  height: 180px !important;
+  height: auto !important; /* Let it grow naturally */
+  min-height: 180px;
   width: 100%;
   border: 2px solid white;
   border-radius: 12px;
