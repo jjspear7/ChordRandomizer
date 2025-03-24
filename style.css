@@ -182,3 +182,8 @@ button {
   width: 100%;
   text-align: center;
 }
+.next-chord {
+  font-size: 1.2em;
+  color: #aaa;
+  margin-top: 10px;
+}
