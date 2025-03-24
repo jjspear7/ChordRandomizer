@@ -89,3 +89,16 @@ document.querySelectorAll('.presetChord').forEach(button => {
     entriesInput.value = current ? current + ", " + chord : chord;
   });
 });
+const fullscreenBtn = document.getElementById('fullscreenBtn');
+
+fullscreenBtn.addEventListener('click', () => {
+  if (!document.fullscreenElement) {
+    display.requestFullscreen().then(() => {
+      display.classList.add('fullscreen-mode');
+    });
+  } else {
+    document.exitFullscreen().then(() => {
+      display.classList.remove('fullscreen-mode');
+    });
+  }
+});
