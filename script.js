@@ -86,11 +86,16 @@ function resetCycle() {
   clearInterval(intervalId);
   running = false;
   startPauseBtn.textContent = "Start";
-  intervalInput.value = "";
+
+  intervalInput.value = "1"; // 🟢 Set default back
   entriesInput.value = "";
-  display.textContent = "♪";
   display.classList.remove('fade-in');
+  document.getElementById('chordText').textContent = "♪";
+  document.getElementById('nextChordText').textContent = "?";
+  animateProgressBar(true); // Reset bar
+
   entries = [];
+  nextChord = null;
 }
 
 clearTimeBtn.addEventListener('click', () => intervalInput.value = "");
