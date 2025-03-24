@@ -132,8 +132,4 @@ button {
   justify-content: center;
   align-items: center;
 }
-#display.fullscreen-mode {
-  flex-direction: column;
-  width: 100vw;
-  height: 100vh;
-}
+
