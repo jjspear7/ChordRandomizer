@@ -1,4 +1,4 @@
-body {
+pbody {
   background-color: #222;
   color: #fff;
   font-family: sans-serif;
@@ -55,11 +55,10 @@ button {
 }
 
 #presetChords {
-  display: none;
+  display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 6px;
-  margin-top: 10px;
 }
 
 #presetChords button {
@@ -68,9 +67,10 @@ button {
   flex: 0 0 auto;
 }
 #presetChordsContainer {
+  display: none; /* Hidden by default */
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  margin-top: 10px;
 }
 .fade-in {
   opacity: 1;
