@@ -164,6 +164,7 @@ fullscreenBtn.addEventListener('click', () => {
     display.removeAttribute('style');
     progressContainer.removeAttribute('style');
   }
+ });
 const toggleChordsBtn = document.getElementById('toggleChordsBtn');
 const chordsContainer = document.getElementById('presetChordsContainer');
 
