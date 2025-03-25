@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // 🔹 Toggle chord button visibility
   if (toggleChordsBtn && chordsContainer) {
     toggleChordsBtn.addEventListener('click', () => {
+      console.log("Toggle clicked");
       const isHidden = chordsContainer.style.display === 'none';
       chordsContainer.style.display = isHidden ? 'flex' : 'none';
     });
