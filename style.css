@@ -67,6 +67,11 @@ button {
   color: #fff;
   flex: 0 0 auto;
 }
+#presetChordsContainer {
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
 .fade-in {
   opacity: 1;
 }
