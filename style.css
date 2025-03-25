@@ -1,103 +1,37 @@
-
 body {
-  background-color: #222;
-  color: #fff;
-  font-family: sans-serif;
-  text-align: center;
-  padding: 20px;
+  background-color: #1e1e1e;
+  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
+  padding: 20px;
+  text-align: center;
 }
 
-.container {
-  max-width: 600px;
-  margin: auto;
-}
-
-h1, h2 {
-  margin-top: 20px;
-}
-
-label {
-  display: block;
-  margin: 10px 0 5px;
-}
-
-input {
+input, button {
+  font-size: 16px;
   padding: 10px;
-  margin-bottom: 10px;
-  width: 90%;
-  font-size: 1em;
+  margin: 10px;
+  border-radius: 5px;
   border: none;
-  border-radius: 4px;
 }
 
 button {
-  padding: 10px 20px;
-  margin: 5px;
-  font-size: 1em;
-  border: none;
-  border-radius: 4px;
   cursor: pointer;
-}
-
-#startPauseBtn {
-  background-color: #4CAF50;
-  color: white;
-}
-
-#resetBtn {
-  background-color: #f44336;
-  color: white;
-}
-
-#clearTimeBtn, #clearChordsBtn, #toggleChordListBtn {
-  background-color: #555;
-  color: white;
-}
-
-#presetChordsContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-#presetChords {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 6px;
-}
-
-#presetChords button {
   background-color: #333;
-  color: #fff;
-  flex: 0 0 auto;
+  color: white;
 }
 
-#display {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  visibility: visible;
-  opacity: 1;
-  color: white;
-  font-size: clamp(2em, 5vw, 4em);
-  width: 100%;
-  height: 140px;
-  border: 2px solid white;
-  border-radius: 12px;
-  padding: 20px 10px;
-  box-sizing: border-box;
-  overflow: hidden;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  margin-top: 30px;
-  transition: opacity 0.5s ease-in-out;
+button:hover {
+  background-color: #555;
 }
-#display.normal-mode, #display.fullscreen-mode {
+
+button:active {
+  background-color: #777;
+}
+
+/* Display Box Styles */
+#display.normal-mode,
+#display.fullscreen-mode {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -106,20 +40,24 @@ button {
   color: white;
   border: 2px solid white;
   border-radius: 10px;
-  padding: 30px 20px;
+  padding: 30px 20px 40px; /* Extra bottom padding for bar */
   background-color: #1e1e1e;
   max-width: 800px;
   margin: 30px auto;
   box-sizing: border-box;
   overflow: hidden;
 }
+
 #chordText {
   font-size: clamp(2.5rem, 8vw, 4rem);
-  margin-bottom: 0.6em;
+  margin-bottom: 0.5em;
   line-height: 1;
-  text-wrap: balance;
   text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
+
 #nextChordText {
   font-size: clamp(1.5rem, 4.5vw, 2.5rem);
   color: #888;
@@ -128,13 +66,6 @@ button {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-#nextChordPreview {
-  margin-bottom: 20px;
-}
-
-.bar-spacer {
-  height: 10px;
-}
 
 #progressBarContainer {
   width: 100%;
@@ -142,36 +73,71 @@ button {
   background-color: #444;
   border-radius: 12px;
   overflow: hidden;
-  margin-top: 20px;
-}
-
-#progressBarContainer.normal-mode {
-  height: 10px;
-  background-color: #444;
-  border-radius: 10px;
-  overflow: hidden;
-  max-width: 800px;
-  margin: 10px auto 40px auto; /* Top, right/left, bottom */
-}
-
-#progressBarContainer.fullscreen-mode {
   position: absolute;
   bottom: 0;
   left: 0;
-  height: 12px;
-  width: 100%;
-  background-color: #444;
-  z-index: 1000;
-  border-radius: 0;
 }
+
+#progressBarContainer.fullscreen-mode {
+  height: 12px;
+  border-radius: 0;
+  z-index: 1000;
+}
+
 #progressBar {
   height: 100%;
   width: 0%;
   background-color: white;
   transition: width linear;
 }
-#progressBar.fullscreen-mode {
-  height: 100%;
-  background-color: white;
-  border-radius: 0;
+
+/* Buttons */
+#startPauseBtn {
+  background-color: #4CAF50;
+}
+
+#resetBtn {
+  background-color: #f44336;
+}
+
+#fullscreenBtn {
+  background-color: #2196F3;
+}
+
+.toggle-chords {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  background-color: #eee;
+  color: #111;
+  padding: 10px 20px;
+}
+
+/* Chord Button Section */
+#presetChordsContainer {
+  margin-top: 30px;
+}
+
+.chord-section-title {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+#presetChords {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  padding-bottom: 30px;
+}
+
+.presetChord {
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.presetChord:hover {
+  background-color: #555;
 }
