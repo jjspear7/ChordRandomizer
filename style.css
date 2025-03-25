@@ -108,7 +108,7 @@ button {
   flex-shrink: 1;
   max-width: 100%;
   font-size: 1em;
-  margin-bottom: 10px;
+  margin-bottom: 0px;
 }
 
 #nextChordPreview {
