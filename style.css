@@ -97,21 +97,37 @@ button {
   margin-top: 30px;
   transition: opacity 0.5s ease-in-out;
 }
-#display.normal-mode {
-  padding: 30px 20px;
+#display.normal-mode, #display.fullscreen-mode {
+  position: relative;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  background-color: #1e1e1e;
+  color: white;
   border: 2px solid white;
   border-radius: 10px;
+  padding: 30px 20px;
+  background-color: #1e1e1e;
   max-width: 800px;
-  margin: 0 auto;
+  margin: 30px auto;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 #chordText {
-  margin-bottom: 20px;
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  margin-bottom: 0.6em;
+  line-height: 1;
+  text-wrap: balance;
+  text-align: center;
 }
-
+#nextChordText {
+  font-size: clamp(1.5rem, 4.5vw, 2.5rem);
+  color: #888;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 #nextChordPreview {
   margin-bottom: 20px;
 }
@@ -122,13 +138,11 @@ button {
 
 #progressBarContainer {
   width: 100%;
-  max-width: 600px;
-  margin: 10px auto 0;
   height: 10px;
   background-color: #444;
   border-radius: 12px;
   overflow: hidden;
-  box-sizing: border-box;
+  margin-top: 20px;
 }
 
 #progressBarContainer.normal-mode {
@@ -143,17 +157,18 @@ button {
 #progressBarContainer.fullscreen-mode {
   position: absolute;
   bottom: 0;
-  width: 100%;
+  left: 0;
   height: 12px;
-  background-color: transparent;
+  width: 100%;
+  background-color: #444;
+  z-index: 1000;
   border-radius: 0;
-  padding: 0;
-  margin: 0;
 }
 #progressBar {
   height: 100%;
-  background-color: white;
   width: 0%;
+  background-color: white;
+  transition: width linear;
 }
 #progressBar.fullscreen-mode {
   height: 100%;
