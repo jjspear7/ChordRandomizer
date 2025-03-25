@@ -165,11 +165,16 @@ fullscreenBtn.addEventListener('click', () => {
     progressContainer.removeAttribute('style');
   }
  });
-const toggleChordsBtn = document.getElementById('toggleChordsBtn');
-const chordsContainer = document.getElementById('presetChordsContainer');
+document.addEventListener('DOMContentLoaded', () => {
+  const toggleChordsBtn = document.getElementById('toggleChordsBtn');
+  const chordsContainer = document.getElementById('presetChordsContainer');
 
-toggleChordsBtn.addEventListener('click', () => {
-  const isHidden = chordsContainer.style.display === 'none';
-  chordsContainer.style.display = isHidden ? 'flex' : 'none';
+  // Hide the chord buttons container by default
+  chordsContainer.style.display = 'none';
+
+  toggleChordsBtn.addEventListener('click', () => {
+    const isHidden = chordsContainer.style.display === 'none';
+    chordsContainer.style.display = isHidden ? 'flex' : 'none';
+  });
 });
 
