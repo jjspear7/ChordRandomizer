@@ -55,7 +55,7 @@ button {
 }
 
 #presetChords {
-  display: flex;
+  display: none;
   flex-wrap: wrap;
   justify-content: center;
   gap: 6px;
