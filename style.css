@@ -115,6 +115,9 @@ button:active {
 /* Chord Button Section */
 #presetChordsContainer {
   margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .chord-section-title {
@@ -127,7 +130,9 @@ button:active {
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
-  padding-bottom: 30px;
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .presetChord {
