@@ -146,3 +146,27 @@ button:active {
 .presetChord:hover {
   background-color: #555;
 }
+.input-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 10px 0;
+  flex-wrap: wrap;
+}
+
+.input-group label {
+  color: white;
+  margin-right: 8px;
+  min-width: 180px;
+  text-align: right;
+}
+
+.input-group input[type="text"],
+.input-group input[type="number"] {
+  width: 400px; /* ⬅️ Wider entry box to avoid cutoff */
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+}
