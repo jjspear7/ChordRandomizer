@@ -13,6 +13,24 @@ const clearTimeBtn = document.getElementById('clearTimeBtn');
 const clearChordsBtn = document.getElementById('clearChordsBtn');
 const display = document.getElementById('display');
 
+//  DOMContentLoaded wrapper (where all element setup + listeners go)
+document.addEventListener('DOMContentLoaded', () => {
+  // 🔹 Get references to elements
+  const toggleChordsBtn = document.getElementById('toggleChordsBtn');
+  const chordsContainer = document.getElementById('presetChordsContainer');
+
+  // 🔹 Hide chord buttons on page load
+  chordsContainer.style.display = 'none';
+
+  // 🔹 Toggle button functionality
+  toggleChordsBtn.addEventListener('click', () => {
+    const isHidden = chordsContainer.style.display === 'none';
+    chordsContainer.style.display = isHidden ? 'flex' : 'none';
+  });
+
+  // 🔹 other setup like event listeners for start, reset, etc
+  // (Just make sure all element references are done *inside* here too)
+});
 
 function displayRandomEntry() {
   if (entries.length === 0) return;
@@ -165,16 +183,4 @@ fullscreenBtn.addEventListener('click', () => {
     progressContainer.removeAttribute('style');
   }
  });
-document.addEventListener('DOMContentLoaded', () => {
-  const toggleChordsBtn = document.getElementById('toggleChordsBtn');
-  const chordsContainer = document.getElementById('presetChordsContainer');
-
-  // Hide the chord buttons container by default
-  chordsContainer.style.display = 'none';
-
-  toggleChordsBtn.addEventListener('click', () => {
-    const isHidden = chordsContainer.style.display === 'none';
-    chordsContainer.style.display = isHidden ? 'flex' : 'none';
-  });
-});
 
