@@ -1,71 +1,59 @@
-let intervalId;
-let currentChordIndex = 0;
+let interval;
+let chordIndex = 0;
+let chords = [];
 
-const startBtn = document.getElementById("startBtn");
-const resetBtn = document.getElementById("resetBtn");
-const fullscreenBtn = document.getElementById("fullscreenBtn");
-const chordText = document.getElementById("chordText");
-const nextChordText = document.getElementById("nextChordText");
-const progressBar = document.getElementById("progressBar");
+const chordText = document.getElementById('chordText');
+const nextChordText = document.getElementById('nextChordText');
+const nextChordPreview = document.getElementById('nextChordPreview');
+const progressBar = document.getElementById('progressBar');
 
-function getChordList() {
-  const input = document.getElementById("chordsInput").value;
-  return input.split(",").map((chord) => chord.trim()).filter((c) => c);
+function updateChord() {
+  if (chords.length === 0) return;
+
+  chordText.textContent = chords[chordIndex];
+
+  const nextIndex = (chordIndex + 1) % chords.length;
+  nextChordText.textContent = chords[nextIndex];
+
+  chordIndex = nextIndex;
+
+  animateProgressBar();
 }
 
-function startDisplay() {
-  const interval = parseFloat(document.getElementById("intervalInput").value);
-  const chords = getChordList();
+function animateProgressBar() {
+  const duration = parseInt(document.getElementById('intervalInput').value) * 1000;
+  progressBar.style.transition = 'none';
+  progressBar.style.width = '0%';
 
-  if (!interval || chords.length < 1) return;
-
-  clearInterval(intervalId);
-  updateChord(chords);
-
-  let startTime = Date.now();
-  intervalId = setInterval(() => {
-    updateChord(chords);
-    startTime = Date.now();
-  }, interval * 1000);
-
-  requestAnimationFrame(function animateProgress() {
-    if (!intervalId) return;
-    const elapsed = (Date.now() - startTime) / 1000;
-    const progress = Math.min(elapsed / interval, 1);
-    progressBar.style.setProperty("--progress", progress);
-    progressBar.style.setProperty("width", `${progress * 100}%`);
-    requestAnimationFrame(animateProgress);
+  requestAnimationFrame(() => {
+    progressBar.style.transition = `width ${duration}ms linear`;
+    progressBar.style.width = '100%';
   });
 }
 
-function updateChord(chords) {
-  chordText.textContent = chords[currentChordIndex];
-  nextChordText.textContent =
-    chords[(currentChordIndex + 1) % chords.length] || "";
+document.getElementById('startBtn').addEventListener('click', () => {
+  const chordInput = document.getElementById('chordsInput').value;
+  chords = chordInput.split(',').map(c => c.trim()).filter(c => c.length > 0);
+  if (chords.length === 0) return;
 
-  currentChordIndex = (currentChordIndex + 1) % chords.length;
-  progressBar.style.setProperty("width", "0%");
-}
+  chordIndex = 0;
+  updateChord();
 
-function resetDisplay() {
-  clearInterval(intervalId);
-  intervalId = null;
-  currentChordIndex = 0;
-  chordText.textContent = "🎵";
-  nextChordText.textContent = "";
-  progressBar.style.setProperty("width", "0%");
-}
+  clearInterval(interval);
+  const duration = parseInt(document.getElementById('intervalInput').value) * 1000;
+  interval = setInterval(updateChord, duration);
+});
 
-function clearIntervalInput() {
-  document.getElementById("intervalInput").value = "";
-}
+document.getElementById('resetBtn').addEventListener('click', () => {
+  clearInterval(interval);
+  chordText.textContent = '';
+  nextChordText.textContent = '';
+  progressBar.style.transition = 'none';
+  progressBar.style.width = '0%';
+});
 
-function clearChordsInput() {
-  document.getElementById("chordsInput").value = "";
-}
-
-document.getElementById("fullscreenBtn").addEventListener("click", () => {
-  const display = document.getElementById("display");
+document.getElementById('fullscreenBtn').addEventListener('click', () => {
+  const display = document.getElementById('display');
   if (!document.fullscreenElement) {
     display.requestFullscreen();
   } else {
@@ -73,34 +61,44 @@ document.getElementById("fullscreenBtn").addEventListener("click", () => {
   }
 });
 
-document.addEventListener("fullscreenchange", () => {
-  const display = document.getElementById("display");
-  const progressContainer = document.getElementById("progressBarContainer");
-
+document.addEventListener('fullscreenchange', () => {
+  const display = document.getElementById('display');
   if (document.fullscreenElement) {
-    display.classList.add("fullscreen-mode");
-    progressContainer.classList.add("fullscreen-mode");
+    display.classList.add('fullscreen-mode');
   } else {
-    display.classList.remove("fullscreen-mode");
-    progressContainer.classList.remove("fullscreen-mode");
+    display.classList.remove('fullscreen-mode');
   }
 });
 
-document
-  .getElementById("startBtn")
-  .addEventListener("click", startDisplay);
-document
-  .getElementById("resetBtn")
-  .addEventListener("click", resetDisplay);
+document.getElementById('clearTimeBtn').addEventListener('click', () => {
+  document.getElementById('intervalInput').value = '';
+});
 
-document.addEventListener("DOMContentLoaded", () => {
-  const toggleBtn = document.getElementById("toggleChordListBtn");
-  const container = document.getElementById("presetChordsContainer");
+document.getElementById('clearChordsBtn').addEventListener('click', () => {
+  document.getElementById('chordsInput').value = '';
+});
 
-  toggleBtn.addEventListener("click", () => {
-    const isHidden = container.style.display === "none";
-    container.style.display = isHidden ? "block" : "none";
+document.getElementById('toggleChordListBtn').addEventListener('click', () => {
+  const container = document.getElementById('presetChordsContainer');
+  if (container.style.display === 'none') {
+    container.style.display = 'block';
+  } else {
+    container.style.display = 'none';
+  }
+});
+
+document.querySelectorAll('.presetChord').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const input = document.getElementById('chordsInput');
+    const current = input.value.trim();
+    if (current.length === 0) {
+      input.value = btn.dataset.chord;
+    } else {
+      input.value = current + ', ' + btn.dataset.chord;
+    }
   });
+});
 
-  container.style.display = "none";
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('presetChordsContainer').style.display = 'none';
 });
