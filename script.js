@@ -1,128 +1,112 @@
-
-let intervalId = null;
-let entries = [];
-let currentInterval = 1000;
-let running = false;
-let lastChord = null;
-let nextChord = null;
-
-const intervalInput = document.getElementById('interval');
-const entriesInput = document.getElementById('entries');
-const startPauseBtn = document.getElementById('startPauseBtn');
-const resetBtn = document.getElementById('resetBtn');
-const clearTimeBtn = document.getElementById('clearTimeBtn');
-const clearChordsBtn = document.getElementById('clearChordsBtn');
-const display = document.getElementById('display');
-const progressBar = document.getElementById('progressBar');
-
-function animateProgressBar(duration) {
-  progressBar.style.transition = 'none';
-  progressBar.style.width = '0%';
-
-  setTimeout(() => {
-    progressBar.style.transition = `width ${duration}ms linear`;
-    progressBar.style.width = '100%';
-  }, 50);
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #1e1f20;
+  color: white;
+  text-align: center;
+  margin: 0;
+  padding: 20px;
 }
 
-function displayRandomEntry() {
-  if (entries.length === 0) return;
-
-  const currentChord = nextChord ?? entries[Math.floor(Math.random() * entries.length)];
-
-  let newIndex;
-  do {
-    newIndex = Math.floor(Math.random() * entries.length);
-  } while (entries[newIndex] === currentChord && entries.length > 1);
-
-  nextChord = entries[newIndex];
-  lastChord = currentChord;
-
-  document.getElementById('chordText').textContent = currentChord;
-  document.getElementById('nextChordText').textContent = nextChord;
-
-  display.classList.remove('fade-in');
-  setTimeout(() => display.classList.add('fade-in'), 100);
-
-  animateProgressBar(currentInterval);
+.container {
+  max-width: 800px;
+  margin: auto;
 }
 
-function startCycle() {
-  const rawEntries = entriesInput.value
-    .split(',')
-    .map(e => e.trim())
-    .filter(e => e && !/[<>{}[\];'"`\\]/.test(e));
-
-  if (rawEntries.length === 0) {
-    alert("Please enter valid chords.");
-    return;
-  }
-
-  entries = rawEntries;
-
-  const seconds = parseFloat(intervalInput.value);
-  if (isNaN(seconds) || seconds <= 0) {
-    alert("Please enter a valid time interval.");
-    return;
-  }
-
-  currentInterval = seconds * 1000;
-
-  if (!running) {
-    displayRandomEntry();
-    intervalId = setInterval(displayRandomEntry, currentInterval);
-    running = true;
-    startPauseBtn.textContent = "Pause";
-  } else {
-    clearInterval(intervalId);
-    running = false;
-    startPauseBtn.textContent = "Start";
-  }
+.input-group {
+  margin: 10px 0;
 }
 
-function resetCycle() {
-  clearInterval(intervalId);
-  running = false;
-  startPauseBtn.textContent = "Start";
-  entries = [];
-  nextChord = null;
-  intervalInput.value = "1";
-  entriesInput.value = "";
-  document.getElementById('chordText').textContent = "♪";
-  document.getElementById('nextChordText').textContent = "";
-  progressBar.style.width = '0%';
+input[type="text"],
+input[type="number"] {
+  padding: 8px;
+  width: 300px;
+  max-width: 90%;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 4px;
 }
 
-clearTimeBtn.addEventListener('click', () => intervalInput.value = "");
-clearChordsBtn.addEventListener('click', () => entriesInput.value = "");
+button {
+  margin: 5px;
+  padding: 8px 16px;
+  font-size: 1em;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #444;
+  color: white;
+}
 
-startPauseBtn.addEventListener('click', startCycle);
-resetBtn.addEventListener('click', resetCycle);
+button:hover {
+  background-color: #666;
+}
 
-document.querySelectorAll('.presetChord').forEach(button => {
-  button.addEventListener('click', () => {
-    const chord = button.getAttribute('data-chord');
-    let current = entriesInput.value.trim();
-    entriesInput.value = current ? current + ", " + chord : chord;
-  });
-});
+.button-row {
+  margin-top: 10px;
+}
 
-document.getElementById('fullscreenBtn').addEventListener('click', () => {
-  if (!document.fullscreenElement) {
-    display.requestFullscreen();
-  } else {
-    document.exitFullscreen();
-  }
-});
+#display {
+  margin: 20px auto 10px;
+  padding: 20px;
+  border: 2px solid #444;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 600px;
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
-document.getElementById('toggleChordListBtn').addEventListener('click', () => {
-  const chordContainer = document.getElementById('presetChordsContainer');
-  const btn = document.getElementById('toggleChordListBtn');
-  const isHidden = chordContainer.style.display === 'none';
-  chordContainer.style.display = isHidden ? 'block' : 'none';
-  btn.textContent = isHidden ? 'Hide Chord Buttons' : 'Show Chord Buttons';
-});
+#chordText {
+  font-size: 3em;
+  font-weight: bold;
+}
 
-document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('presetChordsContainer').style.display = 'none';
-});
+#nextChordText {
+  font-size: 1.8em;
+  color: #a3a3a3;
+  margin-top: 0.5em;
+}
+
+#progressBarContainer {
+  margin: 15px auto;
+  width: 70%;
+}
+
+#progressBar {
+  width: 100%;
+  height: 10px;
+  background-color: #1e1f20;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid white;
+}
+
+#progressBar::before {
+  content: '';
+  display: block;
+  height: 100%;
+  width: 0;
+  background-color: white;
+  border-radius: 10px;
+  transition: width 0.1s linear;
+}
+
+.fullscreen-mode #display {
+  height: 50vh;
+}
+
+.fullscreen-mode #chordText {
+  font-size: 5em;
+}
+
+.fullscreen-mode #nextChordText {
+  font-size: 2.5em;
+}
+
+.fullscreen-mode #progressBarContainer {
+  margin-top: 30px;
+}
