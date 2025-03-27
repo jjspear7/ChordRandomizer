@@ -2,70 +2,61 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Chord Transition Practice</title>
-  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div id="app">
+  <div class="container">
     <h1>Chord Transition Practice</h1>
-    <p>Randomly display chords at a chosen interval to practice chord transitions.</p>
-
-    <div class="input-group">
+    <p class="description">
+      Randomly display chords at a chosen interval to practice chord transitions.
+    </p>
+    <div class="form-row">
       <label for="intervalInput">Time Interval (seconds):</label>
-      <input type="number" id="intervalInput" min="1" placeholder="1"/>
-      <button id="clearTimeBtn">Clear Time</button>
+      <input type="number" id="intervalInput" min="1" value="1" />
+      <button id="clearInterval">Clear Time</button>
     </div>
-
-    <div class="input-group">
-      <label for="chordsInput">Chords (separated by commas):</label>
-      <input type="text" id="chordsInput" placeholder="e.g. G Major, A Minor, C Major" />
-      <button id="clearChordsBtn">Clear Chords</button>
+    <div class="form-row">
+      <label for="chordInput">Chords (separated by commas):</label>
+      <input type="text" id="chordInput" placeholder="e.g. G Major, A Minor, C Major" />
+      <button id="clearChords">Clear Chords</button>
     </div>
-
     <div class="button-row">
-      <button id="startBtn" class="green">Start</button>
-      <button id="resetBtn" class="red">Reset</button>
-      <button id="fullscreenBtn" class="blue">Fullscreen</button>
+      <button class="start-btn" id="startBtn">Start</button>
+      <button class="reset-btn" id="resetBtn">Reset</button>
+      <button class="fullscreen-btn" id="fullscreenBtn">Fullscreen</button>
     </div>
-
-    <div id="displayBox" class="normal-mode">
-      <div id="chordText">🎵</div>
-      <div id="nextChordPreview">
-        <span id="nextChordText"></span>
+    <div id="display" class="display-box">
+      <div id="currentChord" class="current-chord">🎵</div>
+      <div id="nextChord" class="next-chord"></div>
+      <div id="progressBar">
+        <div id="fill"></div>
       </div>
     </div>
-
-    <div id="progressBarWrapper">
-      <div id="progressBar"></div>
-    </div>
-
     <h2>Preset Chords</h2>
     <button id="toggleChordListBtn">Toggle Chord Buttons</button>
-    <div id="presetChordsContainer">
-      <div id="presetChords">
-        <button class="presetChord" data-chord="C Major">C Major</button>
-        <button class="presetChord" data-chord="D Major">D Major</button>
-        <button class="presetChord" data-chord="E Major">E Major</button>
-        <button class="presetChord" data-chord="F Major">F Major</button>
-        <button class="presetChord" data-chord="G Major">G Major</button>
-        <button class="presetChord" data-chord="A Major">A Major</button>
-        <button class="presetChord" data-chord="B Major">B Major</button>
-        <button class="presetChord" data-chord="C Minor">C Minor</button>
-        <button class="presetChord" data-chord="D Minor">D Minor</button>
-        <button class="presetChord" data-chord="E Minor">E Minor</button>
-        <button class="presetChord" data-chord="F Minor">F Minor</button>
-        <button class="presetChord" data-chord="G Minor">G Minor</button>
-        <button class="presetChord" data-chord="A Minor">A Minor</button>
-        <button class="presetChord" data-chord="B Minor">B Minor</button>
-        <button class="presetChord" data-chord="A7">A7</button>
-        <button class="presetChord" data-chord="B7">B7</button>
-        <button class="presetChord" data-chord="E7">E7</button>
-        <button class="presetChord" data-chord="G7">G7</button>
-      </div>
+    <div id="presetChordsContainer" class="preset-chords">
+      <button class="chord-btn">C Major</button>
+      <button class="chord-btn">D Major</button>
+      <button class="chord-btn">E Major</button>
+      <button class="chord-btn">F Major</button>
+      <button class="chord-btn">G Major</button>
+      <button class="chord-btn">A Major</button>
+      <button class="chord-btn">B Major</button>
+      <button class="chord-btn">C Minor</button>
+      <button class="chord-btn">D Minor</button>
+      <button class="chord-btn">E Minor</button>
+      <button class="chord-btn">F Minor</button>
+      <button class="chord-btn">G Minor</button>
+      <button class="chord-btn">A Minor</button>
+      <button class="chord-btn">B Minor</button>
+      <button class="chord-btn">A7</button>
+      <button class="chord-btn">B7</button>
+      <button class="chord-btn">E7</button>
+      <button class="chord-btn">G7</button>
     </div>
   </div>
-
   <script src="script.js"></script>
 </body>
 </html>
