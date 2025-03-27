@@ -1,0 +1,99 @@
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #1e1f20;
+  color: white;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+input, button {
+  font-size: 1rem;
+  padding: 0.4em 0.8em;
+  margin: 0.3em;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+}
+
+button {
+  background-color: #444;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #666;
+}
+
+#display {
+  border: 2px solid #ffffff55;
+  border-radius: 12px;
+  padding: 1.5rem 1rem 2.5rem;
+  margin: 2rem auto 1rem;
+  max-width: 600px;
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  position: relative;
+  background-color: #222;
+}
+
+#chordText {
+  font-size: 3rem;
+  font-weight: bold;
+  max-width: 90%;
+  overflow-wrap: break-word;
+}
+
+.next-chord {
+  margin-top: 0.5rem;
+  font-size: 2rem;
+  color: #aaa;
+  max-width: 90%;
+  overflow-wrap: break-word;
+}
+
+#progressBarContainer {
+  width: 70%;
+  height: 10px;
+  margin: 1rem auto 0;
+  background-color: #111;
+  border: 2px solid white;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+#progressBar {
+  width: 0%;
+  height: 100%;
+  background-color: white;
+  transition: none;
+  border-radius: 6px;
+}
+
+#presetChordsContainer {
+  margin-top: 1.5rem;
+  background-color: #1e1f20;
+  padding: 1rem 0;
+}
+
+#presetChords {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.8rem;
+}
+
+#fullscreenBtn {
+  background-color: #007bff;
+}
+
+h1, h2 {
+  margin-bottom: 0.5rem;
+}
