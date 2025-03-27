@@ -7,56 +7,56 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
-    <h1>Chord Transition Practice</h1>
-    <p class="description">
-      Randomly display chords at a chosen interval to practice chord transitions.
-    </p>
-    <div class="form-row">
-      <label for="intervalInput">Time Interval (seconds):</label>
-      <input type="number" id="intervalInput" min="1" value="1" />
-      <button id="clearInterval">Clear Time</button>
-    </div>
-    <div class="form-row">
-      <label for="chordInput">Chords (separated by commas):</label>
-      <input type="text" id="chordInput" placeholder="e.g. G Major, A Minor, C Major" />
-      <button id="clearChords">Clear Chords</button>
-    </div>
-    <div class="button-row">
-      <button class="start-btn" id="startBtn">Start</button>
-      <button class="reset-btn" id="resetBtn">Reset</button>
-      <button class="fullscreen-btn" id="fullscreenBtn">Fullscreen</button>
-    </div>
-    <div id="display" class="display-box">
-      <div id="currentChord" class="current-chord">🎵</div>
-      <div id="nextChord" class="next-chord"></div>
-      <div id="progressBar">
-        <div id="fill"></div>
-      </div>
-    </div>
-    <h2>Preset Chords</h2>
-    <button id="toggleChordListBtn">Toggle Chord Buttons</button>
-    <div id="presetChordsContainer" class="preset-chords">
-      <button class="chord-btn">C Major</button>
-      <button class="chord-btn">D Major</button>
-      <button class="chord-btn">E Major</button>
-      <button class="chord-btn">F Major</button>
-      <button class="chord-btn">G Major</button>
-      <button class="chord-btn">A Major</button>
-      <button class="chord-btn">B Major</button>
-      <button class="chord-btn">C Minor</button>
-      <button class="chord-btn">D Minor</button>
-      <button class="chord-btn">E Minor</button>
-      <button class="chord-btn">F Minor</button>
-      <button class="chord-btn">G Minor</button>
-      <button class="chord-btn">A Minor</button>
-      <button class="chord-btn">B Minor</button>
-      <button class="chord-btn">A7</button>
-      <button class="chord-btn">B7</button>
-      <button class="chord-btn">E7</button>
-      <button class="chord-btn">G7</button>
+  <h1>Chord Transition Practice</h1>
+  <p>Randomly display chords at a chosen interval to practice chord transitions.</p>
+
+  <div>
+    <label for="interval">Time Interval (seconds):</label>
+    <input type="number" id="interval" value="1" min="0.1" step="0.1" />
+    <button id="clearTimeBtn">Clear Time</button>
+  </div>
+  <div>
+    <label for="chords">Chords (separated by commas):</label>
+    <input type="text" id="chords" placeholder="e.g. G Major, A Minor, C Major" />
+    <button id="clearChordsBtn">Clear Chords</button>
+  </div>
+  <div>
+    <button id="startBtn">Start</button>
+    <button id="resetBtn">Reset</button>
+    <button id="fullscreenBtn">Fullscreen</button>
+  </div>
+
+  <div id="display-section">
+    <div id="current-chord">♪</div>
+    <div id="next-chord"></div>
+    <div id="progress-bar">
+      <div id="progress-fill"></div>
     </div>
   </div>
+
+  <h2>Preset Chords</h2>
+  <button id="toggleChordListBtn">Toggle Chord Buttons</button>
+  <div id="presetChordsContainer">
+    <button>C Major</button>
+    <button>D Major</button>
+    <button>E Major</button>
+    <button>F Major</button>
+    <button>G Major</button>
+    <button>A Major</button>
+    <button>B Major</button>
+    <button>C Minor</button>
+    <button>D Minor</button>
+    <button>E Minor</button>
+    <button>F Minor</button>
+    <button>G Minor</button>
+    <button>A Minor</button>
+    <button>B Minor</button>
+    <button>A7</button>
+    <button>B7</button>
+    <button>E7</button>
+    <button>G7</button>
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>
