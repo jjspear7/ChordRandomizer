@@ -23,6 +23,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const toggleChordsBtn = document.getElementById('toggleChordsBtn');
   const chordsContainer = document.getElementById('presetChordsContainer');
 
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+  if (isIOS) {
+    document.getElementById('fullscreenBtn').style.display = 'none';
+  }
   // 🔹 Hide chords by default
   if (chordsContainer) chordsContainer.style.display = 'none';
 
