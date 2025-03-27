@@ -1,112 +1,118 @@
-let chords = [];
-let currentIndex = 0;
-let interval = null;
-let intervalTime = 1000;
-let progressAnimation = null;
+document.addEventListener('DOMContentLoaded', () => {
+  const display = document.getElementById('chord-display');
+  const current = document.getElementById('current-chord');
+  const next = document.getElementById('next-chord');
+  const fill = document.getElementById('progress-fill');
+  const intervalSelect = document.getElementById('interval');
 
-const intervalInput = document.getElementById("intervalInput");
-const chordsInput = document.getElementById("chordsInput");
-const startBtn = document.getElementById("startBtn");
-const resetBtn = document.getElementById("resetBtn");
-const fullscreenBtn = document.getElementById("fullscreenBtn");
-const clearTimeBtn = document.getElementById("clearTimeBtn");
-const clearChordsBtn = document.getElementById("clearChordsBtn");
-const chordText = document.getElementById("chordText");
-const nextChordText = document.getElementById("nextChordText");
-const progressBar = document.getElementById("progressBar");
-const toggleChordListBtn = document.getElementById("toggleChordListBtn");
-const presetChordsContainer = document.getElementById("presetChordsContainer");
+  let chords = [];
+  let index = 0;
+  let loop = null;
 
-function updateProgressBar(duration) {
-  progressBar.querySelector("::before");
-  progressBar.style.setProperty("--bar-duration", `${duration}ms`);
-  const bar = progressBar.querySelector("::before");
-  if (bar) bar.style.width = "0%";
-  progressBar.querySelector("::before").style.width = "100%";
-}
+  const startBtn = document.getElementById('startBtn');
+  const resetBtn = document.getElementById('resetBtn');
+  const fullscreenBtn = document.getElementById('fullscreenBtn');
+  const clearChordsBtn = document.getElementById('clearChordsBtn');
+  const chordInput = document.getElementById('chords');
+  const toggleChordListBtn = document.getElementById('toggleChordListBtn');
+  const presetChordsContainer = document.getElementById('presetChordsContainer');
 
-function animateProgressBar(duration) {
-  const fill = progressBar.querySelector("::before");
-  fill.style.transition = "none";
-  fill.style.width = "0%";
-  requestAnimationFrame(() => {
-    fill.style.transition = `width ${duration}ms linear`;
-    fill.style.width = "100%";
+  const clearTimeBtn = document.getElementById('clearTimeBtn');
+  const timeInput = document.getElementById('interval');
+  clearTimeBtn.addEventListener('click', () => {
+    timeInput.value = '';
   });
-}
 
-function displayNextChord() {
-  if (chords.length === 0) return;
+  clearChordsBtn.addEventListener('click', () => {
+    chordInput.value = '';
+  });
 
-  const currentChord = chords[currentIndex];
-  const nextChord = chords[(currentIndex + 1) % chords.length];
-
-  chordText.textContent = currentChord;
-  nextChordText.textContent = nextChord;
-
-  animateProgressBar(intervalTime);
-  currentIndex = (currentIndex + 1) % chords.length;
-}
-
-function startChordLoop() {
-  if (interval) clearInterval(interval);
-  displayNextChord();
-  interval = setInterval(displayNextChord, intervalTime);
-}
-
-function resetChordLoop() {
-  clearInterval(interval);
-  interval = null;
-  currentIndex = 0;
-  chordText.textContent = "🎵";
-  nextChordText.textContent = "";
-  const fill = progressBar.querySelector("::before");
-  if (fill) fill.style.width = "0%";
-}
-
-function updateChordList() {
-  chords = chordsInput.value
-    .split(",")
-    .map(c => c.trim())
-    .filter(c => c.length > 0);
-}
-
-startBtn.addEventListener("click", () => {
-  updateChordList();
-  const seconds = parseFloat(intervalInput.value);
-  if (isNaN(seconds) || seconds <= 0) return;
-  intervalTime = seconds * 1000;
-  startChordLoop();
-});
-
-resetBtn.addEventListener("click", resetChordLoop);
-clearTimeBtn.addEventListener("click", () => (intervalInput.value = ""));
-clearChordsBtn.addEventListener("click", () => (chordsInput.value = ""));
-
-fullscreenBtn.addEventListener("click", () => {
-  const app = document.documentElement;
-  if (!document.fullscreenElement) {
-    app.requestFullscreen();
-    document.body.classList.add("fullscreen-mode");
-  } else {
-    document.exitFullscreen();
-    document.body.classList.remove("fullscreen-mode");
+  function updateChordList() {
+    chords = chordInput.value.split(',').map(c => c.trim()).filter(c => c);
+    if (chords.length > 0) {
+      index = 0;
+      displayChord();
+    }
   }
-});
 
-toggleChordListBtn.addEventListener("click", () => {
-  if (presetChordsContainer.style.display === "none") {
-    presetChordsContainer.style.display = "block";
-  } else {
-    presetChordsContainer.style.display = "none";
+  function displayChord() {
+    if (chords.length === 0) {
+      current.textContent = '♪';
+      next.textContent = '';
+      return;
+    }
+    current.textContent = chords[index];
+    next.textContent = chords[(index + 1) % chords.length];
   }
+
+  function animateProgressBar(duration) {
+    if (!fill) return;
+    fill.style.transition = 'none';
+    fill.style.width = '0%';
+    void fill.offsetWidth; // trigger reflow
+    fill.style.transition = `width ${duration}ms linear`;
+    fill.style.width = '100%';
+  }
+
+  function startChordLoop() {
+    updateChordList();
+    const interval = parseFloat(intervalSelect.value) * 1000;
+    if (!interval || chords.length === 0) return;
+    displayChord();
+    animateProgressBar(interval);
+
+    loop = setInterval(() => {
+      index = (index + 1) % chords.length;
+      displayChord();
+      animateProgressBar(interval);
+    }, interval);
+  }
+
+  function stopChordLoop() {
+    clearInterval(loop);
+    loop = null;
+    fill.style.transition = 'none';
+    fill.style.width = '0%';
+  }
+
+  startBtn.addEventListener('click', () => {
+    stopChordLoop();
+    startChordLoop();
+  });
+
+  resetBtn.addEventListener('click', () => {
+    stopChordLoop();
+    index = 0;
+    displayChord();
+  });
+
+  fullscreenBtn.addEventListener('click', () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+  });
+
+  toggleChordListBtn.addEventListener('click', () => {
+    const isHidden = presetChordsContainer.style.display === 'none';
+    presetChordsContainer.style.display = isHidden ? 'flex' : 'none';
+    toggleChordListBtn.textContent = isHidden ? 'Hide Chord Buttons' : 'Show Chord Buttons';
+  });
+
+  document.querySelectorAll('#presetChordsContainer button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const val = btn.textContent.trim();
+      const currentVal = chordInput.value.trim();
+      if (!currentVal.includes(val)) {
+        chordInput.value = currentVal ? `${currentVal}, ${val}` : val;
+        updateChordList();
+      }
+    });
+  });
+
+  // Initial display setup
+  displayChord();
+  presetChordsContainer.style.display = 'none';
+  timeInput.value = '1'; // Set default time value
 });
-
-document.querySelectorAll(".presetChord").forEach(btn =>
-  btn.addEventListener("click", () => {
-    const chord = btn.dataset.chord;
-    chordsInput.value += chordsInput.value ? `, ${chord}` : chord;
-  })
-);
-
-presetChordsContainer.style.display = "none";
