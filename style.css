@@ -1,188 +1,179 @@
-/* === Updated Master CSS for Chord Transition Practice === */
+:root {
+  --background-color: #121212;
+  --text-color: #ffffff;
+  --accent-color: #1e90ff;
+  --button-color: #2e2e2e;
+  --border-radius: 8px;
+  --progress-bar-height: 10px;
+  --chord-font-size: 3rem;
+  --next-chord-font-size: 1.5rem;
+}
 
 body {
+  background-color: var(--background-color);
+  color: var(--text-color);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #111;
-  color: #fff;
-  text-align: center;
   margin: 0;
-  padding: 0;
-}
-
-h1 {
-  margin-top: 40px;
-  font-size: 2rem;
-}
-
-#controls {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 30px;
-}
-
-.input-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-bottom: 25px;
-  padding-bottom: 10px;
+  padding: 20px;
+  text-align: center;
 }
 
 input[type="text"],
 input[type="number"] {
-  padding: 5px 10px;
-  border-radius: 5px;
-  border: 1px solid #aaa;
-  background-color: #fff;
-  color: #000;
-  font-size: 1rem;
-  width: 300px;
-  max-width: 80vw;
-  margin-right: 10px;
+  padding: 10px;
   margin-bottom: 10px;
+  border-radius: var(--border-radius);
+  border: none;
+  width: 250px;
+  max-width: 90vw;
 }
 
 button {
-  padding: 6px 12px;
-  font-size: 1rem;
+  margin: 5px;
+  padding: 10px 15px;
   border: none;
-  border-radius: 5px;
+  border-radius: var(--border-radius);
   cursor: pointer;
+  font-size: 1rem;
 }
 
-#startBtn {
-  background-color: #28a745;
-  color: white;
-}
-
-#resetBtn {
-  background-color: #dc3545;
-  color: white;
-}
-
-#fullscreenBtn {
-  background-color: #007bff;
-  color: white;
-}
-
-button:hover {
-  opacity: 0.85;
-}
+#startBtn { background-color: #28a745; color: white; }
+#resetBtn { background-color: #dc3545; color: white; }
+#fullscreenBtn { background-color: #007bff; color: white; }
 
 #display-section {
-  margin: 30px auto 10px;
-  padding: 30px;
-  border: 1px solid #555;
-  border-radius: 8px;
-  background-color: #222;
-  width: 60%;
-  max-width: 600px;
-  min-height: 120px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer; /* Enable click to exit fullscreen */
+  background-color: #272727;
+  -moz-box-pack: start;
+  border: 1px solid #444;
+  border-radius: var(--border-radius);
+  padding: 40px 10px;
+  margin: 30px auto;
+  width: 700px;
+  max-width: 90vw;
+  transition: all 0.3s ease;
+  position: relative;
 }
 
 #current-chord {
-  font-size: 2.5rem;
+  font-size: var(--chord-font-size);
   font-weight: bold;
-  color: #fff;
 }
 
 #next-chord {
-  font-size: 1.5rem;
-  margin-top: 10px;
-  color: #ccc;
+  font-size: var(--next-chord-font-size);
+  color: #bbb;
+  margin-bottom: 3%;
 }
 
 #progress-bar {
-  width: 100%;
-  height: 8px;
-  background-color: #000;
-  border-radius: 10px;
-  border: 2px solid #fff;
-  margin: 20px auto 0;
+  height: var(--progress-bar-height);
+  background-color: #222;
+  border-radius: var(--border-radius);
   overflow: hidden;
+  margin-top: 20px;
+  margin-bottom: -10px;
+  border: 1px solid white;
+  max-width:70%;
+  margin:auto;
 }
 
 #progress-fill {
   height: 100%;
   width: 0%;
-  background-color: #fff;
+  background-color: white;
+  border-radius: var(--border-radius);
   transition: width 1s linear;
 }
 
 #presetChordsContainer {
-  margin-top: 20px;
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
   justify-content: center;
-  max-width: 600px;
+  margin-top: 10px;
+  max-width: 700px;
   margin-left: auto;
   margin-right: auto;
 }
 
-.preset-btn {
-  background-color: #eee;
-  color: #111;
-  padding: 6px 12px;
-  border-radius: 5px;
-  border: none;
-  font-weight: bold;
+#presetChordsContainer button {
+  background-color: #e9e9e9;
+  color: black;
+  margin: 5px;
+  font-weight: 600;
 }
 
-.preset-btn:hover {
-  background-color: #ddd;
+/* Fullscreen tap-to-exit prompt */
+.tap-exit-prompt::after {
+  content: "Tap to exit";
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+  animation: pulse 1.5s infinite;
 }
 
-#preset-section {
-  margin-top: 20px;
-  text-align: center;
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
 }
 
-@media (fullscreen), (display-mode: fullscreen) {
-  #display-section {
-    width: 95vw;
-    max-width: 100vw;
-    height: auto;
-    justify-content: center;
-    padding: 40px 10px;
-  }
-
-  #current-chord {
-    font-size: 12vw;
-  }
-
-  #next-chord {
-    font-size: 6vw;
-  }
-
-  #progress-bar {
-    width: 70vw;
-    height: 30px;
-    margin-top: 3rem;
-  }
-}
-
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   #display-section {
     width: 97vw;
-    padding: 20px;
   }
 
-  .input-row {
-    margin-bottom: 35px;
-    padding-bottom: 20px;
+  #presetChordsContainer {
+    max-width: 97vw;
   }
 
-  #preset-section {
-    margin-top: 40px;
+  #fullscreenBtn {
+    font-size: 1rem;
+    padding: 12px 18px;
+  }
+
+  input[type="text"],
+  input[type="number"] {
+    margin-bottom: 15px;
+  }
+
+  #clearTimeBtn,
+  #clearChordsBtn {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  #fullscreen .chord {
+    font-size: 8vw;
+  }
+
+  #fullscreen .next-chord {
+    font-size: 4vw;
+  }
+
+  #fullscreen #progress-bar {
+    width: 90vw;
+    margin: 2rem auto 0 auto;
+  }
+
+  /* Enhanced mobile spacing */
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .input-group > div {
+    margin-bottom: 12px;
+  }
+
+  .button-row {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 15px;
   }
 }
