@@ -86,6 +86,7 @@ button:hover {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  cursor: pointer; /* Enable click to exit fullscreen */
 }
 
 #current-chord {
