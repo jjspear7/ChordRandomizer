@@ -1,4 +1,4 @@
-/** === Final JS wired to your current HTML + iPhone detection + input filtering === */
+// === Updated Master JavaScript for Chord Transition Practice ===
 
 let chords = [];
 let currentIndex = 0;
@@ -61,6 +61,14 @@ document.addEventListener('DOMContentLoaded', () => {
     fullscreenBtn.style.display = 'none';
   }
 
+  // Tap display section to exit fullscreen
+  const displaySection = document.getElementById('display-section');
+  displaySection.addEventListener('click', () => {
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+    }
+  });
+
   startBtn.addEventListener('click', () => {
     const rawInput = chordsInput.value.split(',').map(c => c.trim());
     const rejected = rawInput.filter(e => /[<>{}\[\];'"`\\]/.test(e));
@@ -91,13 +99,25 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   fullscreenBtn.addEventListener('click', () => {
-    const displaySection = document.getElementById('display-section');
-    if (!document.fullscreenElement) {
-      displaySection.requestFullscreen();
-    } else {
-      document.exitFullscreen();
-    }
-  });
+  const displaySection = document.getElementById('display-section');
+
+  if (!document.fullscreenElement) {
+    displaySection.requestFullscreen().then(() => {
+      // Optional: visually indicate to mobile users they can tap to exit
+      displaySection.classList.add('tap-exit-prompt');
+    });
+  } else {
+    document.exitFullscreen();
+  }
+});
+
+document.addEventListener('fullscreenchange', () => {
+  const displaySection = document.getElementById('display-section');
+  if (!document.fullscreenElement) {
+    displaySection.classList.remove('tap-exit-prompt');
+  }
+});
+
 
   clearTimeBtn.addEventListener('click', () => {
     intervalInput.value = '';
@@ -115,7 +135,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Preset chord buttons (hardcoded in HTML)
   const presetButtons = presetChordsContainer.querySelectorAll('button');
   presetButtons.forEach(btn => {
     btn.addEventListener('click', () => {
